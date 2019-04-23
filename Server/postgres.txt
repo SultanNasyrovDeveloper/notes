@@ -1,0 +1,3 @@
+sudo -u postgres psql - postgres console mod activation
+	CREATE DATABASE myproject;
+	CREATE USER myprojectuser WITH PASSWORD 'password';

@@ -1,0 +1,119 @@
+STRUCTURE QUERYING LANGUAGE
+Language designed for accessing databases
+
+Операторы в SQL деляться на:
+DDL(DATA DEFINITION LANGUAGE)
+    CREATE(создать базу, таблицу, пользователя итд)
+    ALTER(изменить объект)
+    DROP(удаляет объект)
+DML(DATA MANIPULATION LANGUAGE)
+    SELECT(выбрать объекты удовлетворяющие условиям)
+    INSERT(добавить ноые данные)
+    UPDATE(изменить существующий объект)
+    DELETE(удалить данные)
+DCL(DATA CONTROL LANGUAGE)
+    GRANT(предоставить пользователю или группе разрешение)
+    REVOKE(отзывает разрешение)
+    DENY(задает запрет, котопрый приорететнее чем разрешение)
+TCL(TRANSACTION CONTROL LANGUAGE)
+    COMMIT(применяет транзацкию)
+    ROLLBACK(откатывает изменения сделанные в контексте текущей транзакции)
+    SAVEPOINT(делит на более мелкие участки)
+
+
+/* ================= */
+/* DATA MANIPULATION */
+/* ================= */
+/* QUERYING(SELECT) */
+/* ---------------- */
+/* select everything from table */
+select * from table_name;
+/* select only some column from table */
+select column_name1,column_name2 from table_name;
+/* select only unique values */
+select distinct column_name from table_name;
+/* select items that matches condition */
+/* operators '=', '>', '<', '>=', '<=', '<>', beetween, like(search pattern), in */
+select * from table_name where condition;
+/* test for NULL values */
+select * from table_name where column_name is null;
+select * from table_name where column_name is not null;
+/* logical operators  OR, AND, NOT */
+select column_name1, column_name2 from table_name  where condition or condition;
+/* sort result ORDER BY */
+select * from table_name order by column_name;
+select * from table_name order by column_name desc;
+select * from table_name order by column_name1 asc, column_name2 desc;
+/* specify number of results TOP, LIMIT, ROWNUM */
+select top
+/* COUNT(), AVG(), SUM() */
+/* --------------------- */
+select count(column_name) from table_name where condition;
+select avg(column_name) from table_name where condition;
+select sum(column_name) from table_name where condition;
+/* LIKE operator. Select all... */
+/* ---------------------------- */
+/* with subtring in the beginning */
+select * from table_name where field_name like 'substring%';
+/* with substring in the end */
+select * from table_name where field_name like '%substring';
+/* substring on any position */
+select * from table_name where field_name like '%substring%';
+/* with 'r' letter in the second position */
+select * from table_name where field_name like '_r%';
+/* starts with 'a' and at least 3 chars length */
+select * from table_name where field_name like 'a_%_%';
+/* starts with 'a' and ends with 'z' */
+select * from table_name where field_name like 'a%z';
+/* doesn't start with 'a' */
+select * from table_name where field_name not like 'a%';
+/* IN, BEETWEEN, */
+
+/* alias AS */
+select column_name from table_name as alias;
+/* JOINS */
+/* joins are used to combine rows from two or more table based on related column */
+/* Types of sql joins:
+INNER JOIN: return records only that have matching values in both tables
+LEFT JOIN: we want everything from one table and everything that matches from second table
+RIGHT JOIN: we get only that matches from left table and everything from right table1
+FULL JOIN: it will join everything */
+select * from table1 inner join table2 on table1.column_name=table2.column_name;
+select * from table1 left join table2 on table1.column_name=table2.column_name;
+select * from table1 right join table2 on table1.column_name=table2.column_name;
+select * from table1 full join table2 on table1.column_name=table2.column_name;
+
+
+
+
+/* ------------------------------------------------------ */
+
+/* INSERTION */
+/* --------- */
+/* insert new items in database */
+insert into table_name values (column1_value, column2_value, column3_value);
+
+/* insert new item and specify only certain column values) */
+insert into (column1, column2) values (value1, value2);
+
+
+/* UPDATE */
+/* ------ */
+
+/* change some column values of certain item */
+update table_name set column_name1='smth', column_name2=44 where id = 1;
+
+/* update multiple values */
+update table_name set column_name='smth' where column_name='smth2';
+
+/* update all records */
+update table_name set column_name='smth';
+
+
+/* DELETE */
+/* ------ */
+/* delete items from table */
+delete from table where condition;
+
+/* delete all records */
+delete from table_name;

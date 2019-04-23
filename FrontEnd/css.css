@@ -1,0 +1,123 @@
+﻿/*===СЕЛЕКТОРЫ===*/
+/*-= типы селекторы =-*/
+/*Х+Y Выделяет последующий элемент. Он будет выбирать только элемент типа Y, который идет сразу после элемента Х.*/
+/*В примере текст первого абзаца после каждого ul будет красного цвета*/
+
+/*Х>Y Разница между стандартными Х Y и X > Y состоит в том, что рассматриваемый CSS-селектор будет выбирать */
+/*только непосредственные дочерние элементы. */
+
+/*Х ~ Y */
+/*ul ~ p { color: red; }*/
+/*Этот CSS-селектор очень похож на X + Y, однако, является менее строгим. */
+/*При использовании ul + p будет выбрать только первый элемент, идущий за Х. */
+/*В данном случае будут выбраны все элементы p, идущие за ul.*/
+
+/*X:not(selector)*/
+
+/*X:nth-child(n)*/
+
+/*X:first-child*/
+
+/*X:last-child*/
+
+
+/*свойства*/
+
+/* media queries */
+
+
+/* end media queries */
+
+/* block propeties */
+.div{
+    position: absolute;
+    display: block;
+    top: 5rem;
+    padding: 0;
+    margin: 0;
+
+    background-color: white;
+    background-repeat: repeat;
+    background-position: center;
+    background-attachment: fixed; /* image position */
+
+    opacity: 1;
+
+    border: 1px solid gray;
+    border-radius: 0.5rem;
+
+    cursor: pointer; /* тип курсора */
+
+    float: left; /* */
+    z-index: 10;
+    overflow: hidden; /* ничего не выходит за рамки */
+}
+/* end block propeties */
+
+/* text properties */
+.text{
+    color: gray;
+
+    font-family: Aharoni;
+    font-size: large;
+    font-weight: 600;
+
+    line-height: 1rem;
+
+    letter-spacing: 0.2rem;
+    word-spacing: 0.5rem;
+
+    text-align: center;
+    text-indent: 0.3rem; /*first line*/
+    text-decoration: underline;
+    text-decoration-color: black;
+    text-transform: uppercase; /* регистр */
+    text-shadow: 1px 1px 3px black;
+
+}
+/* end text properties */
+
+/*FLEXBOX*/
+
+.container{
+    display: flex; /* connects flex*/
+    flex-direction: row;
+    flex-wrap: wrap; /* next line */
+    justify-content: space-between;
+    align-content: stretch;
+}
+
+.item{
+    order: 0;
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 300px; /*base element size */
+    align-self: flex-start;
+}
+
+
+
+/* GRID */
+
+container{
+	display: grid;
+
+    grid-column-gap: 1rem;
+    grid-row-gap: 3rem;
+	grid-gap: 20px;
+    
+    grid-template: ;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 500px);
+	grid-template-rows: repeat(3, 250px);
+}
+
+item{
+
+}
+
+
+Some examples:
+container{
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr 2fr);
+}

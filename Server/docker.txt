@@ -1,0 +1,26 @@
+Docker
+1 same environment
+2 sandpox projects
+3 easy to open projects
+
+=== container ===
+contains app and requerement modules library
+container is a running instance of an image
+image is a template to create an envirenment you wanna snapshot in particular time
+run container
+
+is got os, software, application all bundled up
+
+images are defined in a Dockerfile
+
+is a simple text file with a list of step to create that image
+
+you built that image than run to get containers
+
+after Dockerfile ready: 
+
+docker build -t hello-world(output container name)
+
+docker run -p80:80 hello-world
+
+

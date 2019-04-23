@@ -1,0 +1,21 @@
+
+sudo su - postgres
+psql
+CREATE DATABASE myproject;
+CREATE USER user WITH PASSWORD '123456';
+GRANT ALL PRIVILEGES ON DATABASE myproject TO user;
+
+Роли и пользователи базы данных
+--------------------------------
+
+
+
+Importing and exporting postgres databases
+------------------------------------------
+pg_dump utility - dumps data or database to sql dump file
+
+pg_dump [options] [name_of_database] > [output_file]
+creates database dump file in current location
+
+psql [db_name] < [input_file]
+creates database from dump file

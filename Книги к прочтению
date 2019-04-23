@@ -1,0 +1,23 @@
+ Крэга Лармана «Применение UML и шаблонов проектирования»
+ Weisfeld, Matt. The Object%Oriented Thought Process,
+ Riel, Arthur J. Object%Oriented Design Heuristics. — Reading, MA: Addison#Wesley, 1996.
+В этой книге основное внимание уделяется проектированию на уровне классов.
+Еще она легко читается.
+Plauger, P. J. Programming on Purpose: Essays on Software Design. — Englewood Cliffs,
+NJ: PTR Prentice Hall, 1993. В этой книге я нашел столько хороших советов по про-
+ектированию ПО, сколько во всех остальных прочитанных мной книгах вместеГЛАВА 5 Проектирование при конструировании
+117
+взятых. Плоджер прекрасно разбирается во многих подходах к проектированию,
+он прагматичен, и он отличный писатель.
+Meyer, Bertrand. Object%Oriented Software Construction, 2d ed. — New York, NY: Pren tice
+Hall PTR, 1997. Мейер приводит убедительные доводы в защиту чистого объек-
+тно#ориентированного программирования.
+Raymond, Eric S. The Art of UNIX Programming. — Boston, MA: Addison#Wesley, 2004.
+Эта книга — хорошо обоснованный взгляд на проектирование ПО сквозь призму
+UNIX. В разделе 1.6 приведено лаконичное объяснение 17 ключевых принципов
+проектирования ПО для UNIX.
+Larman, Craig. Applying UML and Patterns: An Introduction to Object%Oriented Analysis and
+Design and the Unified Process, 2d ed. — Englewood Cliffs, NJ: Prentice Hall, 2001. Это
+популярное введение в объектно#ориентированное проектирование в контексте
+метода Unified Process. Кроме того, здесь обсуждается объектно#ориентированный
+анализ.

@@ -1,0 +1,13 @@
+##############################################
+############### NGINX ########################
+##############################################
+
+# user nginx;  directive
+# events {}  block - directive with areas for additional directives
+
+# http block
+# contains directives for handling web traffic
+
+# server block
+
+#

@@ -1,0 +1,215 @@
+Server
+---------
+
+pre installation
+-----------------------
+adduser user
+usermod -aG sudo user
+su - user
+sudo usermod -aG www-data  user
+mkdir home/django/logs
+mkdir home/django/logs/nginx
+mkdir home/django/logs/uwsgi
+
+load project
+-------------------
+scp your project
+
+
+packages installation
+-------------------------------
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx
+
+database setup
+-----------------------
+
+#------Создание БД------
+sudo su - postgres
+psql
+CREATE DATABASE myproject;
+CREATE USER user WITH PASSWORD '123456';
+GRANT ALL PRIVILEGES ON DATABASE myproject TO user;
+\q
+
+
+#------Настроить базу данных------
+'default': {
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    'NAME': '',
+    'USER': '',
+    'PASSWORD': '123456',
+    'HOST': 'localhost',
+    'PORT': '',
+}
+
+virtualenv
+---------------
+sudo -H pip3 install --upgrade pip
+sudo -H pip3 install virtualenv
+mkdir /home/user/venvs
+cd /home/user/venvs
+vitualenv projectname_venv
+source venv_name/bin/activate
+pip install -r /path/to/requirements.txt
+
+configure and try project:
+--------------------------------------
+check weather project is working
+check admin page static files
+
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py collectstatic
+python manage.py runserver 0.0.0.0:8000
+Ctrl + C
+deactivate
+
+uwsgi
+---------
+sudo -H pip3 install uwsgi
+sudo mkdir -p /etc/uwsgi/sites
+sudo nano /etc/uwsgi/sites/project.ini 
+----------------->
+
+[uwsgi]
+project = myproject
+uid = user
+base = /home/%(uid)
+chdir = %(base)/%(project)
+home = %(base)/venv/%(project)
+module = %(project).wsgi:application
+master = true
+processes = 5
+socket = %(chdir)/%(project).sock
+chown-socket = %(uid):www-data
+chmod-socket = 660
+vacuum = true  # remove socket file when quitting
+-------------------------------------------------------------------------------
+
+sudo nano /etc/systemd/system/uwsgi.service
+-------------------------------------->
+[Unit]
+Description=uWSGI Emperor service
+[Service]
+ExecStart=/usr/local/bin/uwsgi --emperor /etc/uwsgi/sites
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+NotifyAccess=all
+[Install]
+WantedBy=multi-user.target
+--------------------------------------------------------------
+
+
+NGINX
+---------
+
+sudo nano /etc/nginx/sites-available/myproject
+---------------------->
+server {
+    listen 80;
+    server_name myproject.com www.myproject.com;
+    location = /favicon.ico { access_log off; log_not_found off; }
+    
+    client_max_body_size 100MB;
+    
+    location /static/ {
+        root /home/user/myproject;
+    }
+    location /static/ {
+        root /home/user/myproject;
+    }
+
+    location / {
+        include         uwsgi_params;
+        uwsgi_pass      unix:/run/uwsgi/myproject.sock;
+    }
+}
+
+sudo ln -s /etc/nginx/sites-available/myproject /etc/nginx/sites-enabled
+
+sudo systemctl start uwsgi
+sudo systemctl restart nginx
+sudo systemctl enable nginx
+sudo systemctl enable uwsgi
+sudo reboot
+
+
+sertbot installation
+----------------------------
+
+sudo apt-get update
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install python-certbot-nginx 
+sudo certbot --nginx
+
+----------
+UWSGI
+-----------
+uwsgi [options]
+	--ini /path/to/filename.ini
+	--socket /path/to/socket.sock
+	--module project.wsgi 
+	--chdir /path/to/project
+	--home  /path/to/virtualenv
+	
+-----------------------------------
+uwsgi --http :8080 --home /path/to/venv/ --chdir /path/to/project -w site.wsgi
+
+test uwsgi run
+-----------------------------------
+sudo service uwsgi start/restart
+-----------------------------------
+sudo systemctl enable uwsgi
+
+to start uwsgi on reboot
+-----------------------------------
+sudo systemctl daemon-reload
+-----------------------------------
+systemctl status uwsgi
+-----------------------------------
+uwsgi --http :8000 --home /home/django/venv/venv_name --chdir /home/django/project_name -w project_name.wsgi
+-----------------------------------
+
+
+====================================
+
+
+--------
+UNIT Files
+--------------
+/lib/systemd/system:
+---> example.service.d
+       ---> *.conf
+
+Structure
+[Section]
+Directive1=value
+Directive2=value
+
+[Install]
+
+This section is optional and is used to define the behavior or a unit if it is enabled or disabled. Enabling a unit marks it to be automatically started at boot. In essence, this is accomplished by latching the unit in question onto another unit that is somewhere in the line of units to be started at boot. \
+
+
+-----------
+NGINX 
+-----------
+
+sudo service nginx configtest
+-----------------------------
+sudo nginx -t
+-----------------------------
+sudo service nginx restart
+-----------------------------
+sudo service uwsgi start
+-----------------------
+sudo journalctl -u nginx
+-------------------------
+
+====================================

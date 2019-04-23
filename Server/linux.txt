@@ -1,0 +1,11 @@
+Linux commands
+
+remove files and dirs
+-------------------------------
+rm filename
+rm -r dirname  # delete all files and directoties inside
+rm -r dirname/*  # delete all files inside direcory
+
+user management
+----------------------------
+w  # logged users
